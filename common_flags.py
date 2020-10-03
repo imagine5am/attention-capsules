@@ -38,7 +38,7 @@ logging.basicConfig(
 def define():
   """Define common flags."""
   # yapf: disable
-  flags.DEFINE_integer('batch_size', 2,
+  flags.DEFINE_integer('batch_size', 1,
                        'Batch size.')
 
   flags.DEFINE_integer('crop_width', None,

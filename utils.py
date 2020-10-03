@@ -82,5 +82,5 @@ def variables_to_restore(scope=None, strip_scope=False):
 
 def variables_to_freeze(var_map):
   for var_name, var in var_map.items():
-    print(var.trainable)
-    var.trainable = False
+    print(var.__dict__)
+    # var.trainable = False
