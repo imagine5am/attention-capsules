@@ -206,6 +206,15 @@ def main(_):
         augment=hparams.use_augment_input,
         central_crop_size=common_flags.get_crop_size())
     endpoints = model.create_base(data.images, data.labels_one_hot)
+    
+    for var in slim.get_variables_to_restore(include=['AttentionOcr_v1/caps_fn/CAPS']):
+      print(var.op.name)
+      print(type(var))
+      print(dir(var))
+      print(type(var.op))
+      print(dir(var.op))
+      print("**************************************")
+      
     total_loss = model.create_loss(data, endpoints)
     model.create_summaries(data, endpoints, dataset.charset, is_training=True)
     init_fn = model.create_init_fn_to_restore(FLAGS.checkpoint,
