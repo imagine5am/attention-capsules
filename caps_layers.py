@@ -42,7 +42,7 @@ def create_prim_conv3d_caps(inputs, channels, kernel_size, strides, name, paddin
     return pose, activation
 
 
-def em_routing(v, a_i, beta_v, beta_a, n_iterations=3):
+def em_routing(v, a_i, beta_v, beta_a, n_iterations=1):
     """
     Performs the EM-routing (https://openreview.net/pdf?id=HJWLfGWRb).
 

@@ -73,8 +73,6 @@ def variables_to_restore(scope=None, strip_scope=False):
         var_name = var.op.name[len(scope) + 1:]
       else:
         var_name = var.op.name
-      
-      # tf.get_variable(var_name, trainable=False)
       variable_map[var_name] = var
 
     return variable_map
