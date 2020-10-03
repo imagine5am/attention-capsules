@@ -50,7 +50,7 @@ def logits_to_log_prob(logits):
   return log_probs
 
 
-def variables_to_restore(scope=None, strip_scope=False):
+def variables_to_restore(scope=None, strip_scope=False, trainable=True):
   """Returns a list of variables to restore for the specified list of methods.
 
   It is supposed that variable name starts with the method's scope (a prefix
@@ -73,8 +73,16 @@ def variables_to_restore(scope=None, strip_scope=False):
         var_name = var.op.name[len(scope) + 1:]
       else:
         var_name = var.op.name
+      
+      if trainable == False:
+        var.trainable = trainable
+      
       variable_map[var_name] = var
 
     return variable_map
   else:
     return {v.op.name: v for v in slim.get_variables_to_restore()}
+
+def variables_to_freeze(var_map):
+  for var_name, var in var_map.items():
+    var.trainable = False

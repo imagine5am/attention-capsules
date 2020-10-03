@@ -298,7 +298,6 @@ class Model(object):
 
       deconv2 = tf.layers.conv3d_transpose(deconv1, 128, kernel_size=[3, 6, 6], strides=[1, 2, 2],
                          padding='VALID', use_bias=False, activation=tf.nn.relu, name='deconv2')
-
         
       skip_connection2 = create_skip_connection(prim_caps, 128, kernel_size=[1, 3, 3], strides=[1, 1, 1],
                            padding='SAME', name='skip_2')
@@ -746,7 +745,8 @@ class Model(object):
       return list(names_to_updates.values())
 
   def create_init_fn_to_restore(self, master_checkpoint,
-                                caps_checkpoint=None):
+                                caps_checkpoint=None,
+                                trainable_base=True):
     """Creates an init operations to restore weights from various checkpoints.
 
     Args:
@@ -779,7 +779,9 @@ class Model(object):
 
     if caps_checkpoint:
       variables = utils.variables_to_restore(
-        'AttentionOcr_v1/caps_fn/CAPS', strip_scope=True)
+                                        'AttentionOcr_v1/caps_fn/CAPS', 
+                                        strip_scope=True, 
+                                        trainable=trainable_base)
       assign_from_checkpoint(variables, caps_checkpoint)
 
     def init_assign_fn(sess):

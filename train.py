@@ -209,7 +209,8 @@ def main(_):
     total_loss = model.create_loss(data, endpoints)
     model.create_summaries(data, endpoints, dataset.charset, is_training=True)
     init_fn = model.create_init_fn_to_restore(FLAGS.checkpoint,
-                                              FLAGS.caps_checkpoint)
+                                              FLAGS.caps_checkpoint,
+                                              trainable_base=False)
     if FLAGS.show_graph_stats:
       logging.info('Total number of weights in the graph: %s',
                    calculate_graph_metrics())
