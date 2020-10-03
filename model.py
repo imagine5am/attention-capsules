@@ -780,8 +780,10 @@ class Model(object):
     if caps_checkpoint:
       variables = utils.variables_to_restore(
                                         'AttentionOcr_v1/caps_fn/CAPS', 
-                                        strip_scope=True, 
-                                        trainable=trainable_base)
+                                        strip_scope=True)
+      if not trainable_base:
+        utils.variables_to_freeze(variables)
+        
       assign_from_checkpoint(variables, caps_checkpoint)
 
     def init_assign_fn(sess):

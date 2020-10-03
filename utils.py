@@ -50,7 +50,7 @@ def logits_to_log_prob(logits):
   return log_probs
 
 
-def variables_to_restore(scope=None, strip_scope=False, trainable=True):
+def variables_to_restore(scope=None, strip_scope=False):
   """Returns a list of variables to restore for the specified list of methods.
 
   It is supposed that variable name starts with the method's scope (a prefix
@@ -74,9 +74,6 @@ def variables_to_restore(scope=None, strip_scope=False, trainable=True):
       else:
         var_name = var.op.name
       
-      if trainable == False:
-        var.trainable = trainable
-      
       variable_map[var_name] = var
 
     return variable_map
@@ -85,4 +82,5 @@ def variables_to_restore(scope=None, strip_scope=False, trainable=True):
 
 def variables_to_freeze(var_map):
   for var_name, var in var_map.items():
+    print(var.trainable)
     var.trainable = False
